@@ -1,0 +1,13 @@
+server:
+  port: 9001
+
+spring:
+  application:
+    name: user-service
+
+eureka:
+  client:
+    register-with-eureka: true # eureka server \uC5D0 \uD074\uB77C\uC774\uC5B8\uD2B8\uB85C \uB4F1\uB85D
+    fetch-registry: true # eureka server \uB85C\uBD80\uD130 \uC778\uC2A4\uD134\uC2A4\uB4E4\uC758 \uC815\uBCF4\uB97C \uC8FC\uAE30\uC801\uC73C\uB85C \uAC00\uC838\uC634(\uCE90\uC2DC\uB97C \uC0AC\uC6A9\uD558\uC9C0 \uC54A\uACE0 \uAC31\uC2E0\uB41C \uC815\uBCF4\uB97C \uAC00\uC838\uC634)
+    service-url:
+      defaultZone: http://localhost:8761/eureka # eureka server \uC5D0 \uC11C\uBE44\uC2A4\uC758 url \uB4F1\uB85D\uD568

@@ -1,0 +1,11 @@
+server:
+  port: 8761
+
+spring:
+  application:
+    name: discoveryservice # 마이크로서비스의 이름을 등록
+
+eureka:
+  client:
+    register-with-eureka: false # eureka server 에 자기 자신(eureka server)을 등록하지 않음
+    fetch-registry: false
