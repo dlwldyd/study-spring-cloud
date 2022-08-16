@@ -13,12 +13,31 @@ spring:
     name: apigateway-service
   cloud:
     gateway:
+      default-filters: # 모든 서비스에 필터를 적용하고 싶을 때
+        - name: GlobalFilter # 해당하는 이름의 클래스를 global filter 로 적용한다.
+          args: # 필터의 내부 클래스(Config)에 들어있는 멤버를 초기화 한다.
+            baseMessage: Spring Cloud Gateway Global Filter
+            preLogger: true
+            postLogger: true
       routes:
         - id: first-service # 라우팅 id 값, 마이크로서비스의 application name이랑은 다른거임
           uri: http://localhost:8081/
           predicates:
             - Path=/first-service/** # http://localhost:8000/first-service/** 로 들어오는 모든 요청은 http://localhost:8001/first-service/** 로 라우팅됨
+          filters: # 필터 적용
+#            - AddRequestHeader=first-request, first-request-header
+#            - AddResponseHeader=first-response, first-response-header
+            - CustomFilter # 해당 서비스에 내가 만든 필터를 적용한다.
         - id: second-service
           uri: http://localhost:8082/
           predicates:
             - Path=/second-service/** # http://localhost:8000/second-service/** 로 들어오는 모든 요청은 http://localhost:8001/second-service/** 로 라우팅됨
+          filters: # 필터 적용
+#            - AddRequestHeader=second-request, second-request-header
+#            - AddResponseHeader=second-response, second-response-header
+            - name: CustomFilter # 필터의 추가적인 정보(args 등)를 등록하고 싶으면 'name:'을 앞에 붙여줘야함
+            - name: LoggingFilter
+              args: # 필터의 내부 클래스(Config)에 들어있는 멤버를 초기화 한다.
+                baseMessage: Hi, there.
+                preLogger: true
+                postLogger: true
