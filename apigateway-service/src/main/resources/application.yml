@@ -3,8 +3,8 @@ server:
 
 eureka:
   client:
-    register-with-eureka: false
-    fetch-registry: false
+    register-with-eureka: true
+    fetch-registry: true
     service-url:
       default-zone: http://localhost:8761/eureka
 
@@ -21,7 +21,8 @@ spring:
             postLogger: true
       routes:
         - id: first-service # 라우팅 id 값, 마이크로서비스의 application name이랑은 다른거임
-          uri: http://localhost:8081/
+#          uri: http://localhost:8081/
+          uri: lb://MY-FIRST-SERVICE
           predicates:
             - Path=/first-service/** # http://localhost:8000/first-service/** 로 들어오는 모든 요청은 http://localhost:8001/first-service/** 로 라우팅됨
           filters: # 필터 적용
@@ -29,7 +30,8 @@ spring:
 #            - AddResponseHeader=first-response, first-response-header
             - CustomFilter # 해당 서비스에 내가 만든 필터를 적용한다.
         - id: second-service
-          uri: http://localhost:8082/
+#          uri: http://localhost:8082/
+          uri: lb://MY-SECOND-SERVICE
           predicates:
             - Path=/second-service/** # http://localhost:8000/second-service/** 로 들어오는 모든 요청은 http://localhost:8001/second-service/** 로 라우팅됨
           filters: # 필터 적용
