@@ -1,0 +1,24 @@
+server:
+  port: 0 # 랜덤 포트 사용
+
+spring:
+  application:
+    name: user-service
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+      path: /h2-console
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}} # 인스턴스 id 등록
+  client:
+    register-with-eureka: true # eureka server 에 클라이언트로 등록
+    fetch-registry: true # eureka server 로부터 인스턴스들의 정보를 주기적으로 가져옴(캐시를 사용하지 않고 갱신된 정보를 가져옴)
+    service-url:
+      defaultZone: http://localhost:8761/eureka # eureka server 에 서비스의 url 등록함
+
+greeting:
+  message: welcome!!!
