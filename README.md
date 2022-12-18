@@ -14,3 +14,4 @@
 * [Context Path, url prefix 전역적으로 설정](./msa/userservice/src/main/resources/application.yml)
 * [ModelMapper](./msa/userservice/src/main/java/com/example/userservice/controller/UserController.java)
 * [Environment, 환경정보 가져오기(포트번호 등)](./msa/userservice/src/main/java/com/example/userservice/controller/UserController.java)
+* [@JsonInclude](./msa/userservice/src/main/java/com/example/userservice/domain/vo/ResponseUser.java)
