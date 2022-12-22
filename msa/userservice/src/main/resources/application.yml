@@ -1,7 +1,7 @@
 server:
   port: 0 # 랜덤 포트 사용
-  servlet:
-    contextPath: /user-service # 모든 url의 prefix로 /user-service가 들어감
+#  servlet:
+#    contextPath: /user-service # 모든 url의 prefix로 /user-service가 들어감
 
 spring:
   application:

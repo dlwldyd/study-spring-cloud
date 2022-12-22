@@ -1,7 +1,7 @@
 package com.example.userservice.controller;
 
 import com.example.userservice.domain.dto.UserDto;
-import com.example.userservice.domain.entity.User;
+import com.example.userservice.domain.entity.Member;
 import com.example.userservice.domain.vo.RequestUser;
 import com.example.userservice.domain.vo.ResponseUser;
 import com.example.userservice.service.UserService;
@@ -57,11 +57,11 @@ public class UserController {
 
     @GetMapping("/users")
     public ResponseEntity<?> getUsers() {
-        List<User> users = userService.getUserAll();
+        List<Member> members = userService.getUserAll();
 
         ModelMapper modelMapper = new ModelMapper();
-        List<ResponseUser> responseUsers = users.stream()
-                .map(user -> modelMapper.map(user, ResponseUser.class))
+        List<ResponseUser> responseUsers = members.stream()
+                .map(member -> modelMapper.map(member, ResponseUser.class))
                 .collect(Collectors.toList());
 
         return ResponseEntity.status(HttpStatus.OK).body(responseUsers);

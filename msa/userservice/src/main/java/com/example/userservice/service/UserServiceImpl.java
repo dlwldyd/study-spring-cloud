@@ -1,12 +1,15 @@
 package com.example.userservice.service;
 
 import com.example.userservice.domain.dto.UserDto;
-import com.example.userservice.domain.entity.User;
+import com.example.userservice.domain.entity.Member;
 import com.example.userservice.domain.vo.ResponseOrder;
 import com.example.userservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +19,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
@@ -27,18 +30,18 @@ public class UserServiceImpl implements UserService{
         userDto.setUsername(UUID.randomUUID().toString());
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        User user = modelMapper.map(userDto, User.class);
-        user.setEncryptedPwd(passwordEncoder.encode(userDto.getPassword()));
+        Member member = modelMapper.map(userDto, Member.class);
+        member.setEncryptedPwd(passwordEncoder.encode(userDto.getPassword()));
 
-        userRepository.save(user);
-        return modelMapper.map(user, UserDto.class);
+        userRepository.save(member);
+        return modelMapper.map(member, UserDto.class);
     }
 
     @Override
     public UserDto getUserByUsername(String username) {
-        User user = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("no data"));
+        Member member = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("no data"));
         ModelMapper modelMapper = new ModelMapper();
-        UserDto userDto = modelMapper.map(user, UserDto.class);
+        UserDto userDto = modelMapper.map(member, UserDto.class);
 
         List<ResponseOrder> responseOrders = new ArrayList<>();
         userDto.setOrders(responseOrders);
@@ -46,7 +49,15 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public List<User> getUserAll() {
+    public List<Member> getUserAll() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Member member = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("No such User"));
+        return new User(member.getEmail(), member.getEncryptedPwd(),
+                true, true, true, true,
+                new ArrayList<>());
     }
 }

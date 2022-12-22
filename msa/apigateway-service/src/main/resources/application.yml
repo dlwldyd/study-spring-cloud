@@ -14,10 +14,10 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: user-service
-          uri: lb://USER-SERVICE
-          predicates:
-            - Path=/user-service/**
+#        - id: user-service
+#          uri: lb://USER-SERVICE
+#          predicates:
+#            - Path=/user-service/**
         - id: catalog-service
           uri: lb://CATALOG-SERVICE
           predicates:
@@ -26,3 +26,27 @@ spring:
           uri: lb://ORDER-SERVICE
           predicates:
             - Path=/order-service/**
+        - id: user-service # 여러 개로 나누기 가능
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/login
+            - Method=POST # HTTP 메소드 지정
+          filters:
+            - RemoveRequestHeader=Cookie # HTTP 요청의 Cookie 헤더를 지워서 마이크로서비스로 보냄
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment} # api-gateway에 url이 /user-serivce/???로 들어오면 마이크로서비스로 /???로 url을 바꾸어 보냄
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/users
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/**
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
