@@ -2,6 +2,7 @@ package com.example.userservice.service;
 
 import com.example.userservice.domain.dto.UserDto;
 import com.example.userservice.domain.entity.Member;
+import com.example.userservice.domain.vo.MemberContext;
 import com.example.userservice.domain.vo.ResponseOrder;
 import com.example.userservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -56,8 +57,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Member member = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("No such User"));
-        return new User(member.getEmail(), member.getEncryptedPwd(),
-                true, true, true, true,
-                new ArrayList<>());
+        return new MemberContext(member,
+                true, true, true, true
+                , new ArrayList<>());
     }
 }

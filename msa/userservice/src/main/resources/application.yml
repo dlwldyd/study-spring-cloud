@@ -36,3 +36,7 @@ eureka:
 
 greeting:
   message: welcome!!!
+
+token:
+  expiration-time: 86400000
+  secret: FOJ2@#FJ33TF@#5Ffom#!@3@kkf2#$2FF234f2#gmFOJ2@#FJ33TF@#5Ffom#!@3@kkf2#$2FF234f2#gm
