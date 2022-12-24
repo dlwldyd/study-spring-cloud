@@ -2,7 +2,7 @@ package com.example.userservice.security;
 
 import com.example.userservice.domain.vo.JsonAuthenticationToken;
 import com.example.userservice.domain.vo.MemberContext;
-import com.example.userservice.domain.vo.UserDetailsDto;
+import com.example.userservice.domain.vo.UserDetailsVo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -35,12 +35,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (jwt != null) {
             try {
                 Map<String, Object> subject = parseSubject(jwt);
-                UserDetailsDto userDetailsDto = objectMapper.convertValue(subject, UserDetailsDto.class);
+                UserDetailsVo userDetailsVo = objectMapper.convertValue(subject, UserDetailsVo.class);
                 JsonAuthenticationToken jsonAuthenticationToken = new JsonAuthenticationToken(
-                        new MemberContext(userDetailsDto,
+                        new MemberContext(userDetailsVo,
                                 true, true, true, true,
-                                userDetailsDto.getAuthorities()),
-                        userDetailsDto.getAuthorities()
+                                userDetailsVo.getAuthorities()),
+                        userDetailsVo.getAuthorities()
                 );
 
                 SecurityContextHolder.getContext().setAuthentication(jsonAuthenticationToken);

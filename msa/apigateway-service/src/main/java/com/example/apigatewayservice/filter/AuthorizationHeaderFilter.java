@@ -41,7 +41,7 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
             }
 
             String authorizationHeader = request.getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
-            String jwt = authorizationHeader.replace("Bearer", "");
+            String jwt = authorizationHeader.replace("Bearer ", "");
 
             if (!isValid(jwt)) {
                 return onError(exchange, "Token is not valid", HttpStatus.UNAUTHORIZED);
@@ -56,7 +56,9 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
 
     }
 
+    // 인증 실패 시 마이크로서비스로 포워드 하지 않고 Unauthorized로 응답
     private Mono<Void> onError(ServerWebExchange exchange, String errMessage, HttpStatus httpStatus) {
+
         ServerHttpResponse response = exchange.getResponse();
         response.setStatusCode(httpStatus);
 

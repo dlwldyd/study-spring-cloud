@@ -7,10 +7,9 @@ import java.util.Collection;
 
 @Builder
 @Getter
-@Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class UserDetailsDto {
+@NoArgsConstructor
+public class UserDetailsVo {
 
     private String email;
 

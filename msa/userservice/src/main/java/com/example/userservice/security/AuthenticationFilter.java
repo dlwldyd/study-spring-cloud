@@ -32,5 +32,4 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
             throw new RuntimeException(e);
         }
     }
-
 }

@@ -11,6 +11,9 @@
   - CustomFilter는 특정 서비스에만 적용되도록 설정, GlobalFilter는 모든 서비스에 대해 적용되도록 설정, LoggingFilter는 해당 필터가 로깅 기능을 함
 * [Http 요청의 헤더값 지워서 마이크로서비스로 보내기](./msa/apigateway-service/src/main/resources/application.yml)
 * [url 경로 변경해서 마이크로서비스로 보내기](./msa/apigateway-service/src/main/resources/application.yml)
+* API Gateway 에서 JWT 인증 처리
+  - [필터](./msa/apigateway-service/src/main/java/com/example/apigatewayservice/filter/AuthorizationHeaderFilter.java)
+  - [필터 등록](./msa/apigateway-service/src/main/resources/application.yml)
 # 마이크로서비스
 * [등록 서비스 yml 파일 설정](./userservice/src/main/resources/application.yml)
 # 잡다
