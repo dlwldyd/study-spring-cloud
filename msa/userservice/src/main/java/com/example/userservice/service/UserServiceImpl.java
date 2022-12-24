@@ -53,12 +53,4 @@ public class UserServiceImpl implements UserService {
     public List<Member> getUserAll() {
         return userRepository.findAll();
     }
-
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Member member = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("No such User"));
-        return new MemberContext(member,
-                true, true, true, true
-                , new ArrayList<>());
-    }
 }

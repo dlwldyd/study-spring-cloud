@@ -14,6 +14,7 @@ import reactor.core.publisher.Mono;
 public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Config> {
 
     public CustomFilter() {
+        // 필수
         super(Config.class);
     }
 

@@ -17,6 +17,7 @@ import reactor.core.publisher.Mono;
 public class LoggingFilter extends AbstractGatewayFilterFactory<LoggingFilter.Config> {
 
     public LoggingFilter() {
+        // 필수
         super(Config.class);
     }
 

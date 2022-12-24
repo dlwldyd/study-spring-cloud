@@ -9,6 +9,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 @RequiredArgsConstructor
 public class JsonAuthenticationProvider implements AuthenticationProvider {
 
-    private final UserService userService;
+    private final UserDetailsService userDetailsService;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -26,13 +27,13 @@ public class JsonAuthenticationProvider implements AuthenticationProvider {
         String username = authentication.getName();
         String password = (String) authentication.getCredentials();
 
-        MemberContext memberContext = (MemberContext) userService.loadUserByUsername(username);
+        MemberContext memberContext = (MemberContext) userDetailsService.loadUserByUsername(username);
 
-        if (!passwordEncoder.matches(password, memberContext.getPassword())) {
+        if (!passwordEncoder.matches(password, memberContext.getEncryptedPwd())) {
             throw new BadCredentialsException("Bad credential");
         }
 
-        return new JsonAuthenticationToken(memberContext, new ArrayList<>());
+        return new JsonAuthenticationToken(memberContext, memberContext.getAuthorities());
     }
 
     @Override

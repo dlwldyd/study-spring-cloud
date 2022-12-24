@@ -21,10 +21,18 @@ public class MemberContext extends User {
     private String encryptedPwd;
 
     public MemberContext(Member member, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
-        super(member.getUsername(), member.getEncryptedPwd(), enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
+        super(member.getUsername(), "", enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
         this.email = member.getEmail();
         this.name = member.getName();
         this.username = member.getUsername();
         this.encryptedPwd = member.getEncryptedPwd();
+    }
+
+    public MemberContext(UserDetailsDto userDetailsDto, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
+        super(userDetailsDto.getUsername(), "", enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
+        this.email = userDetailsDto.getEmail();
+        this.name = userDetailsDto.getName();
+        this.username = userDetailsDto.getUsername();
+        this.encryptedPwd = null;
     }
 }

@@ -15,6 +15,7 @@ import reactor.core.publisher.Mono;
 public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Config> {
 
     public GlobalFilter() {
+        // 필수
         super(Config.class);
     }
 
