@@ -8,4 +8,5 @@ spring:
     config:
       server:
         git:
+          default-label: master # 깃허브 default 브랜치 이름이 main이 아닐 때 적어주자
           uri: file://C:\spring_cloud\git-local-repo

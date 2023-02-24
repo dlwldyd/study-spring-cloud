@@ -1,0 +1,5 @@
+spring:
+  cloud:
+    config:
+      uri: http://localhost:8888 # config server 주소
+      name: ecommerce # 가지고올 yml 파일 이름

@@ -47,6 +47,8 @@ public class SecurityConfig {
         http.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS); // 세션 방식 인증 안함
 
+//        http.authorizeHttpRequests()
+//                .antMatchers("/actuator/**").permitAll();
         http.authorizeHttpRequests()
                 .antMatchers(HttpMethod.GET, "/users").authenticated()
                 .anyRequest().permitAll();
