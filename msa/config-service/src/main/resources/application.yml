@@ -11,5 +11,5 @@ spring:
           default-label: master # 깃허브 default 브랜치 이름이 main이 아닐 때 적어주자
 #          uri: file://C:\spring_cloud\git-local-repo
           uri: https://github.com/dlwldyd/git-local-repo.git
-#          username: {username}
+#          username: {username} private repo 사용 시 깃허브 아이디와 패스워드를 넣어줘야한다.
 #          password: {password}
