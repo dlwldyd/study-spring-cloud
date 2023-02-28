@@ -84,7 +84,8 @@ public class SecurityConfig {
         authenticationFilter.setAuthenticationManager(authenticationManager(authenticationConfiguration));
         authenticationFilter.setAuthenticationSuccessHandler((request, response, authentication) -> {
             response.setStatus(HttpServletResponse.SC_OK);
-            long expiration = Long.parseLong(env.getProperty("token.expiration-time"));
+            String property = env.getProperty("token.expiration-time");
+            long expiration = Long.parseLong(property);
 
             // 서명 알고리즘에 넣을 키 값 생성
             SecretKey key = Keys.hmacShaKeyFor(env.getProperty("token.secret").getBytes(StandardCharsets.UTF_8));
