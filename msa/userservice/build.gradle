@@ -30,6 +30,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.modelmapper:modelmapper:3.1.0'
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+	implementation 'org.springframework.cloud:spring-cloud-starter-bus-amqp'
 
 	// spring cloud config server를 사용하기 위한 dependency
 	implementation 'org.springframework.cloud:spring-cloud-starter-config'

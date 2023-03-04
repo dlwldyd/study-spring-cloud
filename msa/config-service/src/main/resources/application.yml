@@ -4,12 +4,27 @@ server:
 spring:
   application:
     name: config-server
+  # rabbitmq를 통해 spring cloud bus를 사용하기 위한 설정값
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+#  profiles:
+#    active: native # native(git 사용X)로 사용하고 싶으면 넣어줘야한다.
   cloud:
     config:
       server:
+#        native:
+#          search-locations: file:///${user.home}/OneDrive/Desktop/native-file-repo # 깃으로 관리 안해도됨
         git:
           default-label: master # 깃허브 default 브랜치 이름이 main이 아닐 때 적어주자
-#          uri: file://C:\spring_cloud\git-local-repo
+#          uri: file:///C:/spring_cloud/git-local-repo
           uri: https://github.com/dlwldyd/git-local-repo.git
 #          username: {username} private repo 사용 시 깃허브 아이디와 패스워드를 넣어줘야한다.
 #          password: {password}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, busrefresh
