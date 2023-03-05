@@ -1,0 +1,6 @@
+encrypt:
+#  key: abcdefghijklmnopqjstuvwxyz0123456789
+  key-store:
+    location: file:///C:/spring_cloud/keystore/apiEncryptionKey.jks # private key이다.
+    password: test1234
+    alias: apiEncryptionKey
