@@ -31,6 +31,8 @@ spring:
           uri: lb://ORDER-SERVICE
           predicates:
             - Path=/order-service/**
+          filters:
+            - RewritePath=/order-service/(?<segment>.*), /$\{segment}
         - id: user-service # 여러 개로 나누기 가능
           uri: lb://USER-SERVICE
           predicates:

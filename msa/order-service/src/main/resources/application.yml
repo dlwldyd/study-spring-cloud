@@ -1,36 +1,51 @@
 server:
-  port: 0 # \uB79C\uB364 \uD3EC\uD2B8 \uC0AC\uC6A9
-  servlet:
-    contextPath: /order-service # \uBAA8\uB4E0 url\uC758 prefix\uB85C /user-service\uAC00 \uB4E4\uC5B4\uAC10
+  port: 0 # 랜덤포트사용
+#  servlet:
+#    contextPath: /order-service # 모든 url의 prefix로 userservice가 들어감
 
 spring:
   application:
     name: order-service
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
   h2:
     console:
       enabled: true
       settings:
         web-allow-others: true
       path: /h2-console
-  datasource:
-    url: jdbc:h2:mem:/~/test
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+#  datasource:
+#    url: jdbc:h2:mem:/~/test
+#    username: sa
+#    password:
+#    driver-class-name: org.h2.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     defer-datasource-initialization: true
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
 
 eureka:
   instance:
-    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}} # \uC778\uC2A4\uD134\uC2A4 id \uB4F1\uB85D
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}} # 인스턴스id 등록
   client:
-    register-with-eureka: true # eureka server \uC5D0 \uD074\uB77C\uC774\uC5B8\uD2B8\uB85C \uB4F1\uB85D
-    fetch-registry: true # eureka server \uB85C\uBD80\uD130 \uC778\uC2A4\uD134\uC2A4\uB4E4\uC758 \uC815\uBCF4\uB97C \uC8FC\uAE30\uC801\uC73C\uB85C \uAC00\uC838\uC634(\uCE90\uC2DC\uB97C \uC0AC\uC6A9\uD558\uC9C0 \uC54A\uACE0 \uAC31\uC2E0\uB41C \uC815\uBCF4\uB97C \uAC00\uC838\uC634)
+    register-with-eureka: true # eurekaserver 에 클라이언트로 등록
+    fetch-registry: true # eureka server 로부터 인스턴스들의 정보를 주기적으로 가져옴(캐시를 사용하지 않고 갱신된 정보를 가져옴)
     service-url:
-      defaultZone: http://localhost:8761/eureka # eureka server \uC5D0 \uC11C\uBE44\uC2A4\uC758 url \uB4F1\uB85D\uD568
+      defaultZone: http://localhost:8761/eureka # eureka server 에 서비스의 url 등록함
 
 logging:
   level:
     com.example.orderservice: debug
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, busrefresh
