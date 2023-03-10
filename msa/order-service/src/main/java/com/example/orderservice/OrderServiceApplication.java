@@ -13,6 +13,7 @@ import java.util.UUID;
 @EnableJpaAuditing
 public class OrderServiceApplication {
 
+	// commit 테스트용 주석
 	public static void main(String[] args) {
 		SpringApplication.run(OrderServiceApplication.class, args);
 	}
